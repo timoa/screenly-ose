@@ -20,7 +20,10 @@ RUN apt-get update && \
         sqlite3 \
         uzbl \
         x11-xserver-utils \
-        xserver-xorg && \
+        xserver-xorg \
+        cron \
+        procmail \
+    && \
     apt-get clean
 
 RUN rm /etc/nginx/sites-enabled/default
@@ -30,6 +33,10 @@ COPY ansible/roles/ssl/files/nginx_resin.conf /etc/nginx/sites-enabled/screenly.
 ADD requirements.txt /tmp/requirements.txt
 RUN curl -s https://bootstrap.pypa.io/get-pip.py | python && \
     pip install --upgrade -r /tmp/requirements.txt
+
+# Add cron jobs to suspend screens during night and weeekend
+COPY jobs.txt ./
+RUN crontab jobs.txt
 
 # Screenly Websocker Server
 COPY ansible/roles/screenly/files/screenly-websocket_server_layer.service /etc/systemd/system/screenly-websocket_server_layer.service

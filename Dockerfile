@@ -17,6 +17,8 @@ RUN apt-get update && \
         python-netifaces \
         python-simplejson \
         sqlite3 \
+        cron \
+        procmail \
     && \
     apt-get clean
 
@@ -24,6 +26,10 @@ RUN apt-get update && \
 ADD requirements.txt /tmp/requirements.txt
 RUN curl -s https://bootstrap.pypa.io/get-pip.py | python && \
     pip install -r /tmp/requirements.txt
+
+# Add cron jobs to suspend screens during night and weeekend
+COPY jobs.txt ./
+RUN crontab jobs.txt
 
 # Create runtime user
 RUN useradd pi

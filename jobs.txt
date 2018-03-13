@@ -1,0 +1,4 @@
+# minute   hour   day of month     month   day of week       command
+#  0-59    0-23   1-31             1-12    0-7 (0/7 is Sun) 
+30         18     *                *       *                 /opt/vc/bin/tvservice -p ; /opt/vc/bin/tvservice -o
+30         6      *                *       1-5               /opt/vc/bin/tvservice -p ; sudo chvt 6; sudo chvt 7
