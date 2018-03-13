@@ -28,8 +28,8 @@ RUN curl -s https://bootstrap.pypa.io/get-pip.py | python && \
     pip install -r /tmp/requirements.txt
 
 # Add cron jobs to suspend screens during night and weeekend
-COPY jobs.txt ./
-RUN crontab jobs.txt
+ADD jobs.txt /tmp/jobs.txt
+RUN crontab /tmp/jobs.txt
 
 # Create runtime user
 RUN useradd pi
