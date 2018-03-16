@@ -19,6 +19,8 @@ RUN apt-get update && \
         sqlite3 \
         cron \
         procmail \
+        libcec3 \
+        cec-utils \
     && \
     apt-get clean
 
